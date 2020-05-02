@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewData["Title"] = "Registro";
+    ViewData["Title"] = "Login";
 
 }
 @model Cliente
@@ -8,8 +8,8 @@
 <h1>Registro</h1>
 <div class="card mx-auto" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">SignUp</h5>
-        <form asp-action="Registro">
+        <h5 class="card-title">Accede a tu cuenta</h5>
+        <form asp-action="Login">
             <div>
                 <label asp-for="@Model.UserName" for="exampleInputEmail1">Nombre de usuario</label>
                 <input asp-for="@Model.UserName" type="text" class="form-control" placeholder="Nombre de usuario">
