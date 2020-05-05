@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using HipercorWeb.Interfaces;
 using HipercorWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace HipercorWeb.Controllers
 {
@@ -32,7 +35,7 @@ namespace HipercorWeb.Controllers
         {
             if (ModelState.IsValid && await _dbAccess.signup(cliente))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Tienda");
             }
             return View();
         }
@@ -44,12 +47,24 @@ namespace HipercorWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Cliente cliente)
         {
-            if (ModelState.IsValid && await _dbAccess.login(cliente))
+            if (ModelState.GetValidationState("Email") == ModelValidationState.Valid &&
+                ModelState.GetValidationState("Password") == ModelValidationState.Valid)
             {
-                return RedirectToAction("Index", "Home");
+                cliente = await _dbAccess.login(cliente);
+                if (cliente == null)
+                {
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.SetString("User", JsonSerializer.Serialize(cliente));
+                    return RedirectToAction("UserPanel", "Cliente");
+                }
             }
             return View();
         }
+
+
         #endregion
     }
 }

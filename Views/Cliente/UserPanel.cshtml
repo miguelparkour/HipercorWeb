@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Panel de usuario";
+}
+@model Cliente
+<div class="card mx-auto" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Datos de la cuenta</h5>
+        <div class="card-text"><strong>Email: </strong>@Model.Email</div>
+    </div>
+</div>
+<div class="card mx-auto" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Datos personales</h5>
+        <div class="card-text"><strong>Nombre: </strong>@Model.DatosPersonales.Nombre</div>
+        <div class="card-text"><strong>Apellidos: </strong>@Model.DatosPersonales.Apellidos</div>
+        <div class="card-text"><strong>Movil: </strong>@Model.DatosPersonales.Movil</div>
+    </div>
+</div>

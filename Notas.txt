@@ -1,0 +1,6 @@
+Error:
+  "El tipo o el nombre del espacio de nombres 'Linq' no existe en el espacio de nombres 'System.Data'"
+Solución:
+  Click derecho en dependencias / agregar referencia / examinar 
+  C:\Archivos de programa\Reference Assemblies\Microsoft\Framework\v3.5\System.Data.Linq.dll 3.5.0.0
+  agregar

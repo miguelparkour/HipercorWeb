@@ -10,7 +10,7 @@ namespace HipercorWeb.Interfaces
     {
         #region Tablas del cliente
         Task<Boolean> signup(Cliente client);
-        Task<Boolean> login(Cliente client);
+        Task<Cliente> login(Cliente client);
 
         #endregion
     }

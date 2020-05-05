@@ -6,21 +6,49 @@
 @model Cliente
 
 <h1>Registro</h1>
-<div class="card mx-auto" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">SignUp</h5>
-        <form asp-action="Registro">
+
+<form asp-action="Registro">
+    <div class="card mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Datos de la cuenta</h5>
             <div>
-                <label asp-for="@Model.UserName" for="exampleInputEmail1">Nombre de usuario</label>
-                <input asp-for="@Model.UserName" type="text" class="form-control" placeholder="Nombre de usuario">
-                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                <label asp-for="@Model.Email" for="Email">Email</label>
+                <input asp-for="@Model.Email" id="Email" type="text" class="form-control" placeholder="Nombre de usuario">
+                <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Password" for="exampleInputPassword1">Contraseña</label>
-                <input asp-for="@Model.Password" type="password" class="form-control" placeholder="Contraseña">
+                <label asp-for="@Model.Password" for="Password">Contraseña</label>
+                <input asp-for="@Model.Password" id="Password" type="password" class="form-control" placeholder="Contraseña">
                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
-        </form>
+            <div class="form-group">
+                <label asp-for="@Model.ConfirmPassword" for="ConfirmPassword">Repetir la Contraseña</label>
+                <input asp-for="@Model.ConfirmPassword" id="ConfirmPassword" type="password" class="form-control" placeholder="Confirmar la contraseña">
+                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="card mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Datos personales</h5>
+            <div>
+                <label asp-for="@Model.DatosPersonales.Nombre" for="Nombre">Nombre</label>
+                <input asp-for="@Model.DatosPersonales.Nombre" id="Nombre" type="text" class="form-control" placeholder="Nombre">
+                <span asp-validation-for="@Model.DatosPersonales.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.DatosPersonales.Apellidos" for="Apellidos">Apellidos</label>
+                <input asp-for="@Model.DatosPersonales.Apellidos" id="Apellidos" type="text" class="form-control" placeholder="Apellidos">
+                <span asp-validation-for="@Model.DatosPersonales.Apellidos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.DatosPersonales.Movil" for="Fijo">Número de teléfono</label>
+                <input asp-for="@Model.DatosPersonales.Movil" id="Fijo" type="tel" class="form-control" placeholder="Num. telefono">
+                <span asp-validation-for="@Model.DatosPersonales.Movil" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+        </div>
+    </div>
+</form>
+
+

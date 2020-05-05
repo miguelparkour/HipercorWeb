@@ -20,6 +20,7 @@ namespace HipercorWeb.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

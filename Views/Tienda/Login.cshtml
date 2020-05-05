@@ -3,22 +3,20 @@
     ViewData["Title"] = "Login";
 
 }
-@model Cliente
+@model Cliente;
 
-<h1>Registro</h1>
+<h1>Loguearse</h1>
 <div class="card mx-auto" style="width: 18rem;">
     <div class="card-body">
         <h5 class="card-title">Accede a tu cuenta</h5>
         <form asp-action="Login">
             <div>
-                <label asp-for="@Model.UserName" for="exampleInputEmail1">Nombre de usuario</label>
-                <input asp-for="@Model.UserName" type="text" class="form-control" placeholder="Nombre de usuario">
-                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                <label asp-for="@Model.Email" for="input1">Email</label>
+                <input asp-for="@Model.Email" id="input1" type="Email" class="form-control" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.Password" for="exampleInputPassword1">Contraseña</label>
-                <input asp-for="@Model.Password" type="password" class="form-control" placeholder="Contraseña">
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                <label asp-for="@Model.Password" for="input2">Contraseña</label>
+                <input asp-for="@Model.Password" id="input2" type="password" class="form-control" placeholder="Contraseña" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
         </form>
