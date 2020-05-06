@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HipercorWeb.Interfaces;
 using HipercorWeb.Models;
+using HipercorWeb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace HipercorWeb
         {
             services.AddControllersWithViews();
             services.AddSingleton<IDataBaseAccess, DBASqlServerService>();
+            services.AddSingleton<ISendEmail, MailKitService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(15);

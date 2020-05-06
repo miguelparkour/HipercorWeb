@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using HipercorWeb.Interfaces;
 using HipercorWeb.Models;
@@ -15,11 +13,13 @@ namespace HipercorWeb.Controllers
     {
         #region propiedades de clase
         private IDataBaseAccess _dbAccess;
+        private ISendEmail _sendEmail;
         #endregion
         #region metodos de clase
-        public TiendaController(IDataBaseAccess dbAccess)
+        public TiendaController(IDataBaseAccess dbAccess,ISendEmail sendEmail)
         {
             this._dbAccess = dbAccess;
+            this._sendEmail = sendEmail;
         }
         public IActionResult Index()
         {
@@ -35,6 +35,7 @@ namespace HipercorWeb.Controllers
         {
             if (ModelState.IsValid && await _dbAccess.signup(cliente))
             {
+                _sendEmail.Send(cliente.Email, "Bienvenido a Hipercor, " + cliente.DatosPersonales.Nombre, "Holis");
                 return RedirectToAction("Login", "Tienda");
             }
             return View();
@@ -62,6 +63,11 @@ namespace HipercorWeb.Controllers
                 }
             }
             return View();
+        }
+
+        public void Test()
+        {
+           
         }
 
 

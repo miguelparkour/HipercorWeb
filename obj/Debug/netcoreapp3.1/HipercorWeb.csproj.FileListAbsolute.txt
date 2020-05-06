@@ -118,4 +118,9 @@ C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\System.Security.
 C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
 C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\System.Data.Linq.dll
 C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\es\System.Data.Linq.resources.dll
+C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\SendGrid.dll
+C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\RestSharp.dll
+C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\MailKit.dll
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\HipercorWeb.MvcApplicationPartsAssemblyInfo.cache
