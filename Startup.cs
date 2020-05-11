@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HipercorWeb.Interfaces;
-using HipercorWeb.Models;
 using HipercorWeb.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +27,8 @@ namespace HipercorWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
             services.AddSingleton<IDataBaseAccess, DBASqlServerService>();
             services.AddSingleton<ISendEmail, MailKitService>();
             services.AddSession(options =>
@@ -55,6 +57,7 @@ namespace HipercorWeb
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

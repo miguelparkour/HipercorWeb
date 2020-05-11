@@ -1,0 +1,9 @@
+.DS_Store
+node_modules
+bower_components
+src/concat.js
+reports
+*.log
+.vscode
+.env
+parser/ENV

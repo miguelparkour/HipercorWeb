@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Test";
+    Layout = null;
+}
+
+        <script src="~/lib/pselect-master/dist/pselect.js"></script>
+        <h2>Seleccione provincia</h2>
+        <!-- Select de provincias -->
+        <select id="ps-prov"></select>
+        <!-- Select de municipios -->
+        <select id="ps-mun"></select>
+        <h3 id="code">Código Postal</h3>
+
+        <script>
+            // Crear el selector pasandole los elementos del dom.
+            var prov = document.getElementById('ps-prov');
+            var mun = document.getElementById('ps-mun');
+            new Pselect().create(prov, mun);
+
+            document.getElementById('ps-mun').addEventListener('change', function onChange()
+            {
+		        document.getElementById('code').innerText = 'Código: ' + document.getElementById('ps-mun').value;
+	        });
+        </script>

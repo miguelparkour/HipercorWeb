@@ -22,7 +22,7 @@ namespace HipercorWeb.Models
         public string ConfirmPassword { get; set; }
         public DatosPersonales DatosPersonales { get; set; }
 
-        public Direccion[] Direcciones { get; set; }
+        public List<Direccion> Direcciones { get; set; }
 
         public Pedido[] Pedidos { get; set; }
 

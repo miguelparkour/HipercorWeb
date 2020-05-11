@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace HipercorWeb.Controllers
 {
@@ -35,7 +37,9 @@ namespace HipercorWeb.Controllers
         {
             if (ModelState.IsValid && await _dbAccess.signup(cliente))
             {
-                _sendEmail.Send(cliente.Email, "Bienvenido a Hipercor, " + cliente.DatosPersonales.Nombre, "Holis");
+                string EncryptEmail = StringCipher.EncryptString(cliente.Email);
+                string body = "<h1><a href='https://localhost:44315/Cliente/EmailConfirm?cEmail="+EncryptEmail+"'>Confirmar cuenta</a></h1>";
+                _sendEmail.Send(cliente.Email, "Bienvenido a Hipercor, " + cliente.DatosPersonales.Nombre, body);
                 return RedirectToAction("Login", "Tienda");
             }
             return View();
@@ -58,18 +62,23 @@ namespace HipercorWeb.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.SetString("User", JsonSerializer.Serialize(cliente));
+                    cliente = await _dbAccess.CargarDirecciones(cliente);
+                    HttpContext.Session.SetString("User", System.Text.Json.JsonSerializer.Serialize(cliente));
                     return RedirectToAction("UserPanel", "Cliente");
                 }
             }
             return View();
         }
 
-        public void Test()
+        public string Test( string a)
         {
-           
+            Cliente cliente = new Cliente();
+            Direccion dir = new Direccion();
+            dir.Calle = "Hola";
+            cliente.Direcciones = new List<Direccion>();
+            cliente.Direcciones.Add(dir);
+            return "retorno: " + cliente.Direcciones[0].Calle;
         }
-
 
         #endregion
     }

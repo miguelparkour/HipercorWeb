@@ -46,9 +46,46 @@
                 <input asp-for="@Model.DatosPersonales.Movil" id="Fijo" type="tel" class="form-control" placeholder="Num. telefono">
                 <span asp-validation-for="@Model.DatosPersonales.Movil" class="text-danger"></span>
             </div>
+        </div>
+    </div>
+    <div class="card mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">direccion</h5>
+            <script src="~/lib/pselect-master/dist/pselect.js"></script>
+            <div>
+                <label asp-for="@Model.Direcciones[0].CodigoPostal" for="CodigoPostal">Codigo Postal</label>
+                <input asp-for="@Model.Direcciones[0].CodigoPostal" id="CodigoPostal" type="text" class="form-control" placeholder="CodigoPostal">
+                <span asp-validation-for="@Model.Direcciones[0].CodigoPostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Direcciones[0].Calle" for="Calle">Calle</label>
+                <input asp-for="@Model.Direcciones[0].Calle" id="Calle" type="text" class="form-control" placeholder="Calle">
+                <span asp-validation-for="@Model.Direcciones[0].Calle" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label asp-for="@Model.Direcciones[0].Provincia.id" class=" input-group-text" for="Provincia">Provincia</label>
+                </div>
+                <select asp-for="@Model.Direcciones[0].Provincia.id" class="custom-select" id="Provincia" required></select>
+                <span asp-validation-for="@Model.Direcciones[0].Provincia.id" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label asp-for="@Model.Direcciones[0].Municipio.id" class=" input-group-text" for="Municipio">Municipio</label>
+                </div>
+                <select asp-for="@Model.Direcciones[0].Municipio.id" class="custom-select" id="Municipio" required></select>
+                <span asp-validation-for="@Model.Direcciones[0].Municipio.id" class="text-danger"></span>
+            </div>
             <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
         </div>
     </div>
 </form>
+
+<script>
+    // Crear el selector pasandole los elementos del dom.
+    var prov = document.getElementById('Provincia');
+    var mun = document.getElementById('Municipio');
+    new Pselect().create(prov, mun);
+</script>
 
 

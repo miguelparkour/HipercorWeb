@@ -2,38 +2,87 @@
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace HipercorWeb.Models
 {
-
-    /*
-     * https://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp
-     */
     public static class StringCipher
     {
-        
-        public static string Encrypt(string password, byte[] key)
+
+        // encriptacion de una sola via
+        public static string EncryptOneWay(string plainText)
         {
-            //byte[] keyArray = Encoding.UTF8.GetBytes(key); //Exception Specified key is not a valid size for this algorithm.
-            byte[] keyArray = key; // debe ser un array con 24 de longitud 
-            byte[] passArray = Encoding.UTF8.GetBytes(password);
-            try
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encodign = new ASCIIEncoding();
+            StringBuilder sb = new StringBuilder();
+            byte[] stream = sha256.ComputeHash(encodign.GetBytes(plainText));
+            for (int i = 0; i < stream.Length; i++)
             {
-                TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
-                tripleDES.Key = keyArray;
-                tripleDES.Mode = CipherMode.ECB;
-                tripleDES.Padding = PaddingMode.PKCS7;
-
-                ICryptoTransform crypto = tripleDES.CreateEncryptor();
-                byte[] encryptPass = crypto.TransformFinalBlock(passArray, 0, passArray.Length);
-                tripleDES.Clear();
-
-                return Convert.ToBase64String(encryptPass, 0, encryptPass.Length);
+                sb.AppendFormat("{0:x2}", stream[i]);
             }
-            catch (Exception)
+            return sb.ToString();
+        }
+
+        // encryptacion de doble via
+        private static string GetKey()
+        {
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddJsonFile("appsettings.json");
+            IConfigurationRoot config = builder.Build();
+            return config["CryptoPassword"];
+        }
+        public static string EncryptString(string plainText)
+        {
+            byte[] iv = new byte[16];
+            byte[] array;
+            string key = GetKey();
+
+            using (Aes aes = Aes.Create())
             {
-                throw;
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter((Stream)cryptoStream))
+                        {
+                            streamWriter.Write(plainText);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(array);
+        }
+
+        public static string DecryptString(string cipherText)
+        {
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(cipherText);
+            string key = GetKey();
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = iv;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream((Stream)memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader((Stream)cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
+                }
             }
         }
     }

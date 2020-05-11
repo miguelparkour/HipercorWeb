@@ -124,3 +124,5 @@ C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\MailKit.dll
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\HipercorWeb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\EmailConfirm.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\Test.cshtml.g.cs
