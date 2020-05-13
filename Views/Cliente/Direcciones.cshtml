@@ -1,0 +1,48 @@
+﻿<!--CARDS BY Francisco Kataldo-->
+@{
+    ViewData["Title"] = "Direcciones";
+}
+@model List<Direccion>
+<h1>Direcciones</h1>
+
+<h2>Cards Columns</h2>
+<div class="card-columns">
+    <div class="container-fluid contenedor text-center">
+        <h1 class="text-center">CARDS BY Francisco Kataldo</h1>
+        <div class=" container text-center">
+            @foreach (var Direccion in @Model)
+            {
+                var parms = new Dictionary<string, string>
+                        {
+                        { "municipio", Direccion.Municipio.id },
+                        { "calle", Direccion.Calle}
+                        };
+
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
+                    <div class="ver_mas text-center">
+                        @if (Model.Count > 1)
+                        {
+                            <a asp-action="BorrarDireccion"
+                               asp-all-route-data="parms"
+                               class="btn btn-outline-primary btn-block">
+                                Eliminar
+                            </a>
+                        }
+                        <a asp-action="BorrarDireccion2"
+                           asp-all-route-data="parms"
+                           class="btn btn-outline-primary btn-block">
+                            Editar
+                        </a>
+                    </div>
+                    <article class="text-left">
+                        <h2>@Direccion.Calle <br>@Direccion.CodigoPostal</h2>
+                        <h4>Provincia: @Direccion.Provincia.nm <br /> Municipio: @Direccion.Municipio.nm</h4>
+                    </article>
+                    <img src="https://media.metrolatam.com/2019/02/27/screenshot20190227at123048pm-c1134760775ab2f1b3aa9046ea66964a.jpg" alt="">
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<a asp-action="AddDireccion" class="btn btn-primary btn-lg btn-block">Añadir direccion</a>

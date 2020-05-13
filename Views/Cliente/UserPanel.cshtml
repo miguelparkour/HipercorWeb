@@ -19,14 +19,16 @@
         {
             <div class="card-text"><strong>Movil: </strong>@Model.DatosPersonales.Fijo</div>
         }
+        <a asp-action="DatosPersonales" class="btn btn-outline-primary btn-block">Editar</a>
     </div>
 </div>
 <div class="card mx-auto" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">Direccion Principal</h5>
+        <h5 class="card-title">Direcciones: @Model.Direcciones.Count</h5>
         <div class="card-text"><strong>Provincia: </strong>@Model.Direcciones[0].Provincia.nm</div>
         <div class="card-text"><strong>Municipio: </strong>@Model.Direcciones[0].Municipio.nm</div>
         <div class="card-text"><strong>Código postal: </strong>@Model.Direcciones[0].CodigoPostal</div>
         <div class="card-text"><strong>Calle: </strong>@Model.Direcciones[0].Calle</div>
+        <a asp-action="Direcciones" class="btn btn-outline-primary btn-block">Editar</a>
     </div>
 </div>

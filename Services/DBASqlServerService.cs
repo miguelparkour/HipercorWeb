@@ -42,6 +42,37 @@ namespace HipercorWeb.Services
             return result;
         }
 
+        public async Task<Cliente> AddDireccion(Cliente cliente, Direccion dir)
+        {
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "insert into dbo.Direcciones (Email,CP,IdProv,IdMun,Calle) values (@Email,@CP,@IdProv,@IdMun,@Calle)";
+                _insert.Parameters.AddWithValue("@Email", cliente.Email);
+                _insert.Parameters.AddWithValue("@CP", dir.CodigoPostal);
+                _insert.Parameters.AddWithValue("@IdProv", dir.Provincia.id);
+                _insert.Parameters.AddWithValue("@IdMun", dir.Municipio.id);
+                _insert.Parameters.AddWithValue("@Calle", dir.Calle);
+
+                if (await _insert.ExecuteNonQueryAsync()>0)
+                {
+                    cliente.Direcciones.Add(dir);
+                    return cliente;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return null;
+        }
         public async Task<Cliente> login(Cliente client)
         {
             try
@@ -53,7 +84,7 @@ namespace HipercorWeb.Services
                 SqlCommand _insert = new SqlCommand();
                 _insert.Connection = _miConexion;
                 _insert.CommandType = CommandType.Text;
-                _insert.CommandText = "select Nombre, Apellidos, Movil from dbo.Clientes where Email=@Email and Password=@Password";
+                _insert.CommandText = "select Nombre, Apellidos, Movil, Fijo from dbo.Clientes where Email=@Email and Password=@Password";
                 _insert.Parameters.AddWithValue("@Email", client.Email);
                 _insert.Parameters.AddWithValue("@Password",StringCipher.EncryptOneWay(client.Password));
 
@@ -65,6 +96,7 @@ namespace HipercorWeb.Services
                     client.DatosPersonales.Nombre = _reader.GetString(0);
                     client.DatosPersonales.Apellidos = _reader.GetString(1);
                     client.DatosPersonales.Movil = _reader.GetString(2);
+                    client.DatosPersonales.Fijo = _reader.GetString(3);
                     client.Password = null;
                 }
                 _insert.Connection.Close();
@@ -119,6 +151,38 @@ namespace HipercorWeb.Services
 
             }
             return result;
+        }
+
+        public async Task<Cliente> EditarPersonal(Cliente cliente)
+        {
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "update dbo.Clientes set Nombre = @Nombre, Apellidos = @Apellidos , Movil = @Movil , Fijo = @Fijo where Email = @Email";
+                _insert.Parameters.AddWithValue("@Email", cliente.Email);
+                _insert.Parameters.AddWithValue("@Nombre", cliente.DatosPersonales.Nombre);
+                _insert.Parameters.AddWithValue("@Apellidos", cliente.DatosPersonales.Apellidos);
+                _insert.Parameters.AddWithValue("@Movil", cliente.DatosPersonales.Movil);
+                _insert.Parameters.AddWithValue("@Fijo", cliente.DatosPersonales.Fijo);
+
+                if (await _insert.ExecuteNonQueryAsync() == 1)
+                {
+                    return cliente;
+                }
+                _insert.Connection.Close();
+                
+            }
+            catch (Exception)
+            { 
+
+            }
+            return null;
         }
 
         public async Task<Cliente> CargarDirecciones (Cliente cliente)
@@ -197,6 +261,34 @@ namespace HipercorWeb.Services
                 throw;
             }
             return result;
+        }
+
+        public async Task<Cliente> BorrarDireccion(string municipio, string calle, Cliente cliente)
+        {
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "delete from dbo.Direcciones where Email = @Email and IdMun = @IdMun and Calle = @Calle";
+                _insert.Parameters.AddWithValue("@Email", cliente.Email);
+                _insert.Parameters.AddWithValue("@IdMun", municipio);
+                _insert.Parameters.AddWithValue("@Calle", calle);
+
+                if (await _insert.ExecuteNonQueryAsync() > 0)
+                {
+                    cliente = await CargarDirecciones(cliente);
+                    return cliente;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return null;
         }
     }
 }

@@ -13,7 +13,10 @@ namespace HipercorWeb.Interfaces
         Task<Cliente> login(Cliente client);
 
         Task<bool> ConfirmEmail(string email);
+        Task<Cliente> EditarPersonal(Cliente cliente);
         #endregion
         Task<Cliente> CargarDirecciones(Cliente cliente);
+        Task<Cliente> BorrarDireccion(string municipio, string calle, Cliente cliente);
+        Task<Cliente> AddDireccion(Cliente cliente, Direccion dir);
     }
 }

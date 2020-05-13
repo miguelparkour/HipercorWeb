@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewData["Title"] = "DatosPersonales";
+}
+@model Cliente;
+
+<h1>DatosPersonales</h1>
+
+
+<div class="card mx-auto" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Accede a tu cuenta</h5>
+        <form asp-action="DatosPersonales">
+            <div>
+                <label asp-for="@Model.DatosPersonales.Nombre" for="input1">Nombre</label>
+                <input asp-for="@Model.DatosPersonales.Nombre" value="@Model.DatosPersonales.Nombre" id="input1" type="text" class="form-control" placeholder="Nombre" required>
+                <span asp-validation-for="@Model.DatosPersonales.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.DatosPersonales.Apellidos" for="input2">Apellidos</label>
+                <input asp-for="@Model.DatosPersonales.Apellidos" value="@Model.DatosPersonales.Apellidos" id="input2" type="text" class="form-control" placeholder="Apellidos" required>
+                <span asp-validation-for="@Model.DatosPersonales.Apellidos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.DatosPersonales.Movil" for="input2">Movil</label>
+                <input asp-for="@Model.DatosPersonales.Movil" value="@Model.DatosPersonales.Movil" id="input2" type="text" class="form-control" placeholder="Movil" required>
+                <span asp-validation-for="@Model.DatosPersonales.Movil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.DatosPersonales.Fijo" for="input2">Fijo</label>
+                <input asp-for="@Model.DatosPersonales.Fijo" value="@Model.DatosPersonales.Fijo" id="input2" type="text" class="form-control" placeholder="Fijo">
+                <span asp-validation-for="@Model.DatosPersonales.Fijo" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+        </form>
+    </div>
+</div>

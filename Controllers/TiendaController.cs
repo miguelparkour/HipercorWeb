@@ -4,10 +4,9 @@ using HipercorWeb.Interfaces;
 using HipercorWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace HipercorWeb.Controllers
 {
@@ -63,7 +62,8 @@ namespace HipercorWeb.Controllers
                 else
                 {
                     cliente = await _dbAccess.CargarDirecciones(cliente);
-                    HttpContext.Session.SetString("User", System.Text.Json.JsonSerializer.Serialize(cliente));
+                    HttpContext.Session.SetString("User", JsonSerializer.Serialize(cliente));
+                    HttpContext.Session.SetString("name", cliente.DatosPersonales.Nombre);
                     return RedirectToAction("UserPanel", "Cliente");
                 }
             }
@@ -72,14 +72,16 @@ namespace HipercorWeb.Controllers
 
         public string Test( string a)
         {
-            Cliente cliente = new Cliente();
-            Direccion dir = new Direccion();
-            dir.Calle = "Hola";
-            cliente.Direcciones = new List<Direccion>();
-            cliente.Direcciones.Add(dir);
-            return "retorno: " + cliente.Direcciones[0].Calle;
+
+            string EncryptEmail = StringCipher.EncryptString("lzr85044@eoopy.com");
+            string email = StringCipher.DecryptString(EncryptEmail);
+            return EncryptEmail;
         }
 
         #endregion
+
+        //RDJJxX2ZOzOpD2rGT8LG3+09JdgCevughxBghqcFOh8=
+        //RDJJxX2ZOzOpD2rGT8LG3+09JdgCevughxBghqcFOh8=
+        //RDJJxX2ZOzOpD2rGT8LG3 09JdgCevughxBghqcFOh8=
     }
 }

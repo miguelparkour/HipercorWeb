@@ -6,6 +6,8 @@
     <title>@ViewData["Title"] - Hipercor Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/direcciones.css" />
+    @using Microsoft.AspNetCore.Http
 </head>
 <body>
     <header>
@@ -21,15 +23,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Tienda" asp-action="Registro">Registrarse</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Tienda" asp-action="Login">Loguearse</a>
-                        </li>
+                        @{
+                            string namen = Context.Session.GetString("name");
+                            if (namen == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Tienda" asp-action="Registro">Registrarse</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Tienda" asp-action="Login">Loguearse</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Cliente" asp-action="UserPanel">Area de @namen</a>
+                                </li>
+                            }
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Tienda" asp-action="Test">Testear</a>
                         </li>
