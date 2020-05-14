@@ -1,14 +1,12 @@
 ﻿<!--CARDS BY Francisco Kataldo-->
 @{
     ViewData["Title"] = "Direcciones";
+    ViewData["Css"] = "/css/direcciones.css";
 }
 @model List<Direccion>
 <h1>Direcciones</h1>
-
-<h2>Cards Columns</h2>
 <div class="card-columns">
     <div class="container-fluid contenedor text-center">
-        <h1 class="text-center">CARDS BY Francisco Kataldo</h1>
         <div class=" container text-center">
             @foreach (var Direccion in @Model)
             {
@@ -38,7 +36,7 @@
                         <h2>@Direccion.Calle <br>@Direccion.CodigoPostal</h2>
                         <h4>Provincia: @Direccion.Provincia.nm <br /> Municipio: @Direccion.Municipio.nm</h4>
                     </article>
-                    <img src="https://media.metrolatam.com/2019/02/27/screenshot20190227at123048pm-c1134760775ab2f1b3aa9046ea66964a.jpg" alt="">
+                    <img src="~/img/googleMapsBackground.jpg" alt="">
                 </div>
             }
         </div>

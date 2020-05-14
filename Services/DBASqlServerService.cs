@@ -62,6 +62,8 @@ namespace HipercorWeb.Services
 
                 if (await _insert.ExecuteNonQueryAsync()>0)
                 {
+                    dir.Provincia.nm = this.getNm(dir.Provincia.id, "provincia");
+                    dir.Municipio.nm = this.getNm(dir.Municipio.id, "municipio");
                     cliente.Direcciones.Add(dir);
                     return cliente;
                 }
