@@ -4,41 +4,6 @@
     ViewData["Css"] = "/css/profile.css";
 }
 @model Cliente
-<div class="card mx-auto" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Datos de la cuenta</h5>
-        <div class="card-text"><strong>Email: </strong>@Model.Email</div>
-    </div>
-</div>
-<div class="card mx-auto" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Datos personales</h5>
-        <div class="card-text"><strong>Nombre: </strong>@Model.DatosPersonales.Nombre</div>
-        <div class="card-text"><strong>Apellidos: </strong>@Model.DatosPersonales.Apellidos</div>
-        <div class="card-text"><strong>Movil: </strong>@Model.DatosPersonales.Movil</div>
-        @if (@Model.DatosPersonales.Fijo != null)
-        {
-            <div class="card-text"><strong>Fijo: </strong>@Model.DatosPersonales.Fijo</div>
-        }
-        <a asp-action="DatosPersonales" class="btn btn-outline-primary btn-block">Editar</a>
-    </div>
-</div>
-<div class="card mx-auto" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">Direcciones: @Model.Direcciones.Count</h5>
-        <div class="card-text"><strong>Provincia: </strong>@Model.Direcciones[0].Provincia.nm</div>
-        <div class="card-text"><strong>Municipio: </strong>@Model.Direcciones[0].Municipio.nm</div>
-        <div class="card-text"><strong>Código postal: </strong>@Model.Direcciones[0].CodigoPostal</div>
-        <div class="card-text"><strong>Calle: </strong>@Model.Direcciones[0].Calle</div>
-        <a asp-action="Direcciones" class="btn btn-outline-primary btn-block">Editar</a>
-    </div>
-</div>
-
-
-
-
-
-<!--
 <div class="container">
     <div class="row profile">
         <div class="col-md-3">
@@ -46,44 +11,19 @@
 
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        Alladin TROUMBA
+                        HiperCor Web
                     </div>
                     <div class="profile-usertitle-job">
-                        Developer
+                        Supermercado del Corte Inglés
                     </div>
                 </div>
 
-                <div class="profile-userbuttons">
-                    <a href="edit.html" class="btn btn-success btn-sm">Edit my profile</a>
-                </div>
-
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a href="profile.html">
-                                <i class="fa fa-star"></i>
-                                Overview
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-user"></i>
-                                Account Settings
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" target="_blank">
-                                <i class="glyphicon glyphicon-ok"></i>
-                                Tasks
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                Help
-                            </a>
-                        </li>
-                    </ul>
+                <div class="list-group profile-usermenu">
+                    <a href="#" class="list-group-item list-group-item-action active">
+                        Mi Perfil
+                    </a>
+                    <a asp-action="DatosPersonales" class="list-group-item list-group-item-action">Ver Datos Personales</a>
+                    <a asp-action="Direcciones" class="list-group-item list-group-item-action">Direcciones</a>
                 </div>
 
             </div>
@@ -92,41 +32,58 @@
             <div class="profile-content">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Your Profile</h4>
+                        <h4>Mi Perfil</h4>
                         <br>
                     </div>
                 </div>
                 <table class="table table-user-information">
                     <tbody>
                         <tr>
-                            <td>Department:</td>
-                            <td>Programming</td>
+                            <th colspan="2">Datos del Perfil</th>
                         </tr>
                         <tr>
-                            <td>Hire date:</td>
-                            <td>06/23/2013</td>
+                            <td>Email:</td>
+                            <td>@Model.Email</td>
                         </tr>
                         <tr>
-                            <td>Date of Birth</td>
-                            <td>01/24/1988</td>
+                            <td>Nombre:</td>
+                            <td>@Model.DatosPersonales.Nombre</td>
+                        </tr>
+                        <tr>
+                            <td>Apellidos:</td>
+                            <td>@Model.DatosPersonales.Apellidos</td>
                         </tr>
 
                         <tr>
                         <tr>
-                            <td>Gender</td>
-                            <td>Male</td>
+                            <td>Movil:</td>
+                            <td>@Model.DatosPersonales.Movil</td>
+                        </tr>
+                        @if (@Model.DatosPersonales.Fijo != null)
+                        {
+                            <tr>
+                                <td>Fijo:</td>
+                                <td>@Model.DatosPersonales.Fijo</td>
+                            </tr>
+                        }
+                        <tr>
+                            <th colspan="2">Direccion Principal</th>
                         </tr>
                         <tr>
-                            <td>Home Address</td>
-                            <td>Yaoundé,Cameroub</td>
+                            <td>Provincia:</td>
+                            <td>@Model.Direcciones[0].Provincia.nm</td>
                         </tr>
                         <tr>
-                            <td>Email</td>
-                            <td><a href="mailto:info@yuscards.com">info@yuscarsd.com</a></td>
+                            <td>Municipio:</td>
+                            <td>@Model.Direcciones[0].Municipio.nm</td>
                         </tr>
                         <tr>
-                            <td>Phone Number</td>
-                            <td>237-4567-890(Landline)</td>
+                            <td>Código Postal</td>
+                            <td>@Model.Direcciones[0].CodigoPostal</td>
+                        </tr>
+                        <tr>
+                            <td>Direccion completa</td>
+                            <td>@Model.Direcciones[0].Calle</td>
                         </tr>
 
                     </tbody>
@@ -137,5 +94,3 @@
 </div>
 <br>
 <br>
-
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
