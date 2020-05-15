@@ -131,3 +131,8 @@ C:\Users\migue\source\repos\HipercorWeb\bin\Debug\netcoreapp3.1\runtimes\win\lib
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\HipercorWeb.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\Direcciones.cshtml.g.cs
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\AddDireccion.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\RecuperarPassword.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\EditarPassword.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\EditarDireccion.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\ConfirmarEmail.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\EmailConfirmado.cshtml.g.cs

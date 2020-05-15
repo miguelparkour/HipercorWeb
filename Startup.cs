@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HipercorWeb.Filters;
 using HipercorWeb.Interfaces;
 using HipercorWeb.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -31,6 +32,7 @@ namespace HipercorWeb
                 .AddCookie();
             services.AddSingleton<IDataBaseAccess, DBASqlServerService>();
             services.AddSingleton<ISendEmail, MailKitService>();
+            services.AddScoped<CheckUserFilter>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(15);

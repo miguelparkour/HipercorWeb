@@ -10,6 +10,7 @@ namespace HipercorWeb.Models
     {
 
         // encriptacion de una sola via
+        // nunca podremos recuperar el texto original lo cual es bueno pa las contraseñas
         public static string EncryptOneWay(string plainText)
         {
             SHA256 sha256 = SHA256Managed.Create();
@@ -63,6 +64,7 @@ namespace HipercorWeb.Models
 
         public static string DecryptString(string cipherText)
         {
+            cipherText = cipherText.Replace(" ", "+"); // al pasar el cipherText por una url se sustituyen los '+' por espacios, pues esto lo revierte
             byte[] iv = new byte[16];
             byte[] buffer = Convert.FromBase64String(cipherText);
             string key = GetKey();

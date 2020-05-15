@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "EditarDireccion";
+}
+@model Direccion
+<h1>EditarDireccion</h1>
+
+
+<form asp-action="EditarDireccion">
+    <div class="card mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Editar direccion</h5>
+            <script src="~/lib/pselect-master/dist/pselect.js"></script>
+            <div>
+                <label asp-for="@Model.CodigoPostal" for="CodigoPostal">Codigo Postal</label>
+                <input asp-for="@Model.CodigoPostal" value="@Model.CodigoPostal" id="CodigoPostal" type="text" class="form-control" placeholder="CodigoPostal">
+                <span asp-validation-for="@Model.CodigoPostal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Calle" for="Calle">Calle</label>
+                <input asp-for="@Model.Calle" value="@Model.Calle" id="Calle" type="text" class="form-control" placeholder="Calle">
+                <span asp-validation-for="@Model.Calle" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label asp-for="@Model.Provincia.id" class=" input-group-text" for="Provincia">Provincia</label>
+                </div>
+                <select asp-for="@Model.Provincia.id" class="custom-select" id="Provincia" required></select>
+                <span asp-validation-for="@Model.Provincia.id" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label asp-for="@Model.Municipio.id" class=" input-group-text" for="Municipio">Municipio</label>
+                </div>
+                <select asp-for="@Model.Municipio.id" class="custom-select" id="Municipio" required></select>
+                <span asp-validation-for="@Model.Municipio.id" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Añadir dirección</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    // Crear el selector pasandole los elementos del dom.
+    var prov = document.getElementById('Provincia');
+    var mun = document.getElementById('Municipio');
+    new Pselect().create(prov, mun);
+</script>
