@@ -24,7 +24,7 @@ namespace HipercorWeb.Models
 
         public List<Direccion> Direcciones { get; set; }
 
-        public Pedido[] Pedidos { get; set; }
+        public List<Pedido> Pedidos { get; set; }
 
 
         #endregion

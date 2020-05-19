@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Pedidos";
+}
+@model List<Pedido>
+<h1>Pedidos</h1>
+
+
+<div class="container">
+    <div class="row">
+        @foreach (Pedido ped in Model)
+        {
+            <div class="col-xs-12 col-md-10 col-lg-8 col-xl-6">
+                <div class="card">
+                    <div class="card-block">
+                        <h4>Precio: <span class="card-title text-primary">@ped.GetPrecioTotal()</span></h4>
+
+                        @foreach (Producto item in ped.ListaProductos)
+                        {
+                            <p class="card-text">@item.Nombre <br /> @item.Cantidad Unidades</p>
+                        }
+                        <p class="card-text"><strong>Fecha: @ped.Fecha.ToString()</strong></p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">ID: @ped.Id</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

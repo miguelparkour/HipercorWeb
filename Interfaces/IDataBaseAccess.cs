@@ -18,9 +18,22 @@ namespace HipercorWeb.Interfaces
         Task<bool> ConfirmEmail(string email);
         Task<Cliente> EditarPersonal(Cliente cliente);
         #endregion
+
+
+        #region Tablas de direcciones
         Task<Cliente> CargarDirecciones(Cliente cliente);
         Task<Cliente> BorrarDireccion(Cliente cliente, int id);
         Task<Cliente> EditarDireccion(Cliente cliente, Direccion dir, int indice);
         Task<Cliente> AddDireccion(Cliente cliente, Direccion dir);
+
+        #endregion
+
+
+        #region Tablas de productos
+        Task<List<Producto>> CargarProductos();
+        Task<Producto> CargarProductos(string id);
+        Task<Cliente> CargarPedidos(Cliente cliente);
+        Task<bool> HacerPedido(Pedido pedido, Cliente cliente, int index);
+        #endregion
     }
 }

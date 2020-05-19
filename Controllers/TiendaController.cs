@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace HipercorWeb.Controllers
 {
@@ -66,7 +66,8 @@ namespace HipercorWeb.Controllers
                 else
                 {
                     cliente = await _dbAccess.CargarDirecciones(cliente);
-                    HttpContext.Session.SetString("User", JsonSerializer.Serialize(cliente));
+                    cliente = await _dbAccess.CargarPedidos(cliente);
+                    HttpContext.Session.SetString("User", JsonConvert.SerializeObject(cliente));
                     HttpContext.Session.SetString("name", cliente.DatosPersonales.Nombre);
                     return RedirectToAction("UserPanel", "Cliente");
                 }
@@ -147,6 +148,24 @@ namespace HipercorWeb.Controllers
                 return View();
             }
         }
+        #endregion
+
+
+        #region Tienda
+
+        public async Task<IActionResult> Productos()
+        {
+            List<Producto> productos = await _dbAccess.CargarProductos();
+            return View(productos);
+        }
+
+        public async Task<IActionResult> Detalle(string id)
+        {
+            Producto producto = await _dbAccess.CargarProductos(id);
+            return View(producto);
+        }
+
+
         #endregion
 
 

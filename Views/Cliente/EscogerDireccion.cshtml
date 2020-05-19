@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "EscogerDireccion";
+    ViewData["Css"] = "/css/direcciones.css";
+}
+@model List<Direccion>
+<h1>Escoge una dirección de envío</h1>
+
+
+
+<div class="container-fluid contenedor">
+    <div class="row">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="col container_foto ">
+                <div class="ver_mas text-center bg-dark">
+                    <a asp-action="HacerPedido"
+                       asp-route-id="@i"
+                       class="btn btn-outline-primary btn-block btn-lg mt-0">
+                        Escoger Esta dirección
+                    </a>
+                </div>
+                <article class="text-left">
+                    <h2>@Model[i].Calle <br>@Model[i].CodigoPostal</h2>
+                    <h4>Provincia: @Model[i].Provincia.nm <br /> Municipio: @Model[i].Municipio.nm</h4>
+                </article>
+                @{
+                    string ruta = @"../img/mapa1.jpg";
+                    if (i > 3)
+                    {
+                        int number = new Random().Next(3);
+                        ruta = @"../img/mapa" + number + ".jpg";
+                    }
+                    else
+                    {
+                        ruta = @"../img/mapa" + i + ".jpg";
+                    }
+                    <img src=@ruta alt="">
+                }
+            </div>
+        }
+    </div>
+</div>

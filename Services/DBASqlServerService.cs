@@ -184,6 +184,128 @@ namespace HipercorWeb.Services
             return false;
 
         }
+        public async Task<List<Producto>> CargarProductos()
+        {
+
+            List<Producto> productos = new List<Producto>();
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "select IdProd,Nombre,Precio,Img,Descripcion from dbo.Productos";
+                SqlDataReader _reader = _insert.ExecuteReader();
+
+                while (await _reader.ReadAsync())
+                {
+                    Producto producto = new Producto();
+                    producto.Id = _reader.GetInt32(0);
+                    producto.Nombre = _reader.GetString(1);
+                    producto.Precio = _reader.GetDecimal(2);
+                    producto.Img = _reader.GetString(3);
+                    producto.Descripcion = _reader.GetString(4);
+                    productos.Add(producto);
+                }
+                _insert.Connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return productos;
+        }
+        public async Task<Producto> CargarProductos(string id)
+        {
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "select IdProd,Nombre,Precio,Img,Descripcion from dbo.Productos where IdProd=@IdProd";
+                _insert.Parameters.AddWithValue("@IdProd", id);
+                SqlDataReader _reader = _insert.ExecuteReader();
+
+                while (await _reader.ReadAsync())
+                {
+                    Producto producto = new Producto();
+                    producto.Id = _reader.GetInt32(0);
+                    producto.Nombre = _reader.GetString(1);
+                    producto.Precio = _reader.GetDecimal(2);
+                    producto.Img = _reader.GetString(3);
+                    producto.Descripcion = _reader.GetString(4);
+                    producto.Cantidad = 1;
+                    return producto;
+                }
+                _insert.Connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return null;
+        }
+        public async Task<Cliente> CargarPedidos(Cliente cliente)
+        {
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "select IdPed,Fecha,IdProd,Cantidad from dbo.Pedidos where Email=@Email order by IdPed";
+                _insert.Parameters.AddWithValue("@Email", cliente.Email);
+
+                SqlDataReader _reader = _insert.ExecuteReader();
+
+                List<Pedido> pedidos = new List<Pedido>();
+                string idPed = "";
+                Pedido pedido = new Pedido();
+                pedido.ListaProductos = new List<Producto>();
+                Producto producto;
+                while (await _reader.ReadAsync())
+                {
+                    if (idPed != _reader.GetString(0) && idPed!="")
+                    {
+                        pedidos.Add(pedido);
+                        pedido = new Pedido();
+                        pedido.ListaProductos = new List<Producto>();
+                    }
+
+                    idPed = _reader.GetString(0);
+                    pedido.Id = idPed;
+                    pedido.Fecha = _reader.GetDateTime(1);
+
+                    producto = await this.CargarProductos(_reader.GetInt32(2).ToString());
+                    producto.Cantidad = _reader.GetInt32(3);
+                    pedido.ListaProductos.Add(producto);
+
+                }
+                if (pedido.ListaProductos.Count > 0)
+                {
+                    pedidos.Add(pedido);
+                }
+                _insert.Connection.Close();
+                cliente.Pedidos = pedidos;
+                return cliente;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         #endregion
 
 
@@ -264,6 +386,39 @@ namespace HipercorWeb.Services
 
             }
             return result;
+        }
+        public async Task<bool> HacerPedido(Pedido pedido, Cliente cliente, int index)
+        {
+            try
+            {
+                SqlConnection _miConexion = new SqlConnection();
+                _miConexion.ConnectionString = this.connectionString;
+                _miConexion.Open();
+
+                SqlCommand _insert = new SqlCommand();
+                _insert.Connection = _miConexion;
+                _insert.CommandType = CommandType.Text;
+                _insert.CommandText = "insert into dbo.Pedidos (Email,IdPed,IdProd,Cantidad,Fecha,CalleMun) values (@Email,@IdPed,@IdProd,@Cantidad,@Fecha,@CalleMun)";
+
+                foreach (Producto item in pedido.ListaProductos)
+                {
+                    _insert.Parameters.AddWithValue("@Email", cliente.Email);
+                    _insert.Parameters.AddWithValue("@IdPed", pedido.Id);
+                    _insert.Parameters.AddWithValue("@IdProd", item.Id);
+                    _insert.Parameters.AddWithValue("@Cantidad", item.Cantidad);
+                    _insert.Parameters.AddWithValue("@Fecha", pedido.Fecha);
+                    _insert.Parameters.AddWithValue("@CalleMun", cliente.Direcciones[index].Municipio.id+""+cliente.Direcciones[index].Calle);
+
+                    await _insert.ExecuteNonQueryAsync();
+                    _insert.Parameters.Clear();
+                }
+                _insert.Connection.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         #endregion
 

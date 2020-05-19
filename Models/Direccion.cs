@@ -14,12 +14,6 @@ namespace HipercorWeb.Models
         public string Calle { get; set; }
         [Required]
         public string CodigoPostal{ get; set; }
-        /*public Direccion(string calle,string cp,Provincia prov, Municipio mun)
-        {
-            this.Provincia = prov;
-            this.Municipio = mun;
-            this.Calle = calle;
-            this.CodigoPostal = cp;
-        }*/
+
     }
 }

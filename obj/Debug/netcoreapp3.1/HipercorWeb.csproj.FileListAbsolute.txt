@@ -136,3 +136,8 @@ C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tien
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\EditarDireccion.cshtml.g.cs
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\ConfirmarEmail.cshtml.g.cs
 C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\EmailConfirmado.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\Productos.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Tienda\Detalle.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\Carrito.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\EscogerDireccion.cshtml.g.cs
+C:\Users\migue\source\repos\HipercorWeb\obj\Debug\netcoreapp3.1\Razor\Views\Cliente\Pedidos.cshtml.g.cs

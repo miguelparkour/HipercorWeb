@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Detalle";
+}
+@model Producto
+<h1>Detalle</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <img class="card-img-top" src="@Model.Img" alt="Product image" />
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">@Model.Nombre</h4>
+                    <p class="card-text"><strong>Precio: </strong>@Model.Precio</p>
+                    <p class="card-text"><strong>Descripción: </strong>@Model.Descripcion</p>
+                    <a asp-controller="Cliente"
+                       asp-action="AddProducto"
+                       asp-route-id="@Model.Id" class="btn btn-primary btn-lg btn-block">Añadir al carrito</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">IDProduct: @Model.Id</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
