@@ -1,0 +1,23 @@
+﻿@model List<int>
+
+
+<div class="profile-usertitle">
+    <div class="profile-usertitle-name">
+        HiperCor Web
+    </div>
+    <div class="profile-usertitle-job">
+        Supermercado del Corte Inglés
+    </div>
+</div>
+
+<div class="list-group profile-usermenu">
+    <a asp-action="UserPanel" class="list-group-item list-group-item-action @(@Model[1]==0?"active":"")">
+        Mi Perfil
+    </a>
+    <a asp-action="DatosPersonales" class="list-group-item list-group-item-action @(@Model[1]==1?"active":"")">Ver Datos Personales</a>
+    <a asp-action="Direcciones" class="list-group-item list-group-item-action @(@Model[1]==2?"active":"")">Direcciones</a>
+    @if (Model[0] > 0)
+    {
+        <a asp-action="Pedidos" class="list-group-item list-group-item-action @(@Model[1]==3?"active":"")">Pedidos: @Model[0]</a>
+    }
+</div>

@@ -8,28 +8,7 @@
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
-
-                <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">
-                        HiperCor Web
-                    </div>
-                    <div class="profile-usertitle-job">
-                        Supermercado del Corte Inglés
-                    </div>
-                </div>
-
-                <div class="list-group profile-usermenu">
-                    <a href="#" class="list-group-item list-group-item-action active">
-                        Mi Perfil
-                    </a>
-                    <a asp-action="DatosPersonales" class="list-group-item list-group-item-action">Ver Datos Personales</a>
-                    <a asp-action="Direcciones" class="list-group-item list-group-item-action">Direcciones</a>
-                    @if (Model.Pedidos!=null && Model.Pedidos.Count()>0)
-                    {
-                        <a asp-action="Pedidos" class="list-group-item list-group-item-action">Pedidos: @Model.Pedidos.Count()</a>
-                    }
-                </div>
-
+                <partial name="_UserMenu" model="@new List<int>() { Model.Pedidos.Count(),0 }" />
             </div>
         </div>
         <div class="col-md-9">

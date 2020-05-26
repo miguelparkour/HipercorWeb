@@ -1,17 +1,21 @@
 ﻿
 @{
     ViewData["Title"] = "Pedidos";
+    ViewData["Css"] = "/css/profile.css";
 }
-@model List<Pedido>
-<h1>Pedidos</h1>
-
-
+@model Cliente
 <div class="container">
-    <div class="row">
-        @foreach (Pedido ped in Model)
-        {
-            <div class="col-xs-12 col-md-10 col-lg-8 col-xl-6">
-                <div class="card">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <partial name="_UserMenu" model="@new List<int>() { Model.Pedidos.Count(),3 }" />
+            </div>
+        </div>
+        <div class="col-md-9">
+            @foreach (Pedido ped in Model.Pedidos)
+            {
+                <div class="card rounded m-1 row p-3" style="background-color:white">
+
                     <div class="card-block">
                         <h4>Precio: <span class="card-title text-primary">@ped.GetPrecioTotal()</span></h4>
 
@@ -25,7 +29,9 @@
                         <small class="text-muted">ID: @ped.Id</small>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
+<br>
+<br>

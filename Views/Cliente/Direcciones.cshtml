@@ -2,53 +2,63 @@
 @{
     ViewData["Title"] = "Direcciones";
     ViewData["Css"] = "/css/direcciones.css";
+    ViewData["Css2"] = "/css/profile.css";
 }
-@model List<Direccion>
-<h1>Direcciones: @Model.Count</h1>
-
-<div class="container-fluid contenedor">
-    <div class="row">
-        @for (int i = 0; i < Model.Count; i++)
-        {
-        <div class="col container_foto ">
-            <div class="ver_mas text-center bg-dark">
-                @if (Model.Count > 1)
-                {
-                    <a asp-action="BorrarDireccion"
-                       asp-route-id="@i"
-                       class="btn btn-outline-primary btn-block">
-                        Eliminar
-                    </a>
-                }
-                <a asp-action="EditarDireccion"
-                   asp-route-id="@i"
-                   class="btn btn-outline-primary btn-block mt-0">
-                    Editar
-                </a>
+@model Cliente
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <partial name="_UserMenu" model="@new List<int>() { Model.Pedidos.Count(),2 }" />
             </div>
-            <article class="text-left">
-                <h2>@Model[i].Calle <br>@Model[i].CodigoPostal</h2>
-                <h4>Provincia: @Model[i].Provincia.nm <br /> Municipio: @Model[i].Municipio.nm</h4>
-            </article>
-            @{ 
-                string ruta = @"../img/mapa1.jpg";
-                if (i > 3)
-                {
-                    int number = new Random().Next(3);
-                    ruta = @"../img/mapa" + number + ".jpg";
-                }
-                else
-                {
-                    ruta = @"../img/mapa" + i + ".jpg";
-                }
-                <img src=@ruta alt="">
-            }
         </div>
-        }
+        <div class="col-md-9">
+            <a asp-action="AddDireccion" class="btn btn-primary btn-lg btn-block">Añadir direccion</a>
+            <div class="row profile-content" style="display: flex;justify-content: space-around; margin:0">
+                @for (int i = 0; i < Model.Direcciones.Count; i++)
+                {
+                    <div class="col container_foto ">
+                        <div class="ver_mas text-center bg-dark">
+                            @if (Model.Direcciones.Count > 1)
+                            {
+                                <a asp-action="BorrarDireccion"
+                                   asp-route-id="@i"
+                                   class="btn btn-outline-primary btn-block">
+                                    Eliminar
+                                </a>
+                            }
+                            <a asp-action="EditarDireccion"
+                               asp-route-id="@i"
+                               class="btn btn-outline-primary btn-block mt-0">
+                                Editar
+                            </a>
+                        </div>
+                        <article class="text-left">
+                            <h2>@Model.Direcciones[i].Calle <br>@Model.Direcciones[i].CodigoPostal</h2>
+                            <h4>Provincia: @Model.Direcciones[i].Provincia.nm <br /> Municipio: @Model.Direcciones[i].Municipio.nm</h4>
+                        </article>
+                        @{
+                            string ruta = @"../img/mapa1.jpg";
+                            if (i > 3)
+                            {
+                                int number = new Random().Next(3);
+                                ruta = @"../img/mapa" + number + ".jpg";
+                            }
+                            else
+                            {
+                                ruta = @"../img/mapa" + i + ".jpg";
+                            }
+                            <img src=@ruta alt="">
+                        }
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
+<br>
+<br>
 
 
 
 
-<a asp-action="AddDireccion" class="btn btn-primary btn-lg btn-block">Añadir direccion</a>

@@ -64,7 +64,7 @@ namespace HipercorWeb.Controllers
         public IActionResult Direcciones()
         {
             Cliente cliente = JsonConvert.DeserializeObject<Cliente>(HttpContext.Session.GetString("User"));
-            return View(cliente.Direcciones);
+            return View(cliente);
         }
         [HttpGet]
         public async Task<IActionResult> BorrarDireccion(int id)
@@ -258,7 +258,7 @@ namespace HipercorWeb.Controllers
         public IActionResult Pedidos()
         {
             Cliente cliente = JsonConvert.DeserializeObject<Cliente>(HttpContext.Session.GetString("User"));
-            return View(cliente.Pedidos);
+            return View(cliente);
         }
 
 
