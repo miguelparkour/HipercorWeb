@@ -8,7 +8,7 @@ namespace HipercorWeb.Models
 {
     public class Municipio
     {
-        [Required]
+        [Required(ErrorMessage = "id requerido")]
         public string id { get; set; }
         public string nm { get; set; }
     }

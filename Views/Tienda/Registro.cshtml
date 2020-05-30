@@ -21,14 +21,14 @@
                 <div class="form-group col-12">
                     <label asp-for="@Model.Email" for="Email">Email</label>
                     <input asp-for="@Model.Email" id="Email" type="text" class="form-control" placeholder="Nombre de usuario">
-                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    <span asp-validation-for="@Model.Email" class="text-danger">@ViewData["error"]</span>
                 </div>
                 <div class="form-group col-6">
                     <label asp-for="@Model.Password" for="Password">Contraseña</label>
-                    <input asp-for="@Model.Password" id="Password" type="password" class="form-control" placeholder="Contraseña">
+                    <input asp-for="@Model.Password" id="Password" type="password" class="form-control" minlength="4" placeholder="Contraseña">
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
-
+ 
                 <div class="form-group col-6">
                     <label asp-for="@Model.ConfirmPassword" for="ConfirmPassword">Repetir la Contraseña</label>
                     <input asp-for="@Model.ConfirmPassword" id="ConfirmPassword" type="password" class="form-control" placeholder="Confirmar la contraseña">

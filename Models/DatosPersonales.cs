@@ -13,6 +13,7 @@ namespace HipercorWeb.Models
         [Required(ErrorMessage = "Hay que introducir un apellido valido")]
         public string Apellidos { get; set; }
         [Required(ErrorMessage = "Hay que introducir un movil valido")]
+        [RegularExpression(@"^\d{9}$", ErrorMessage = "Formato de telefono erroneo")]
         public string Movil { get; set; }
         public string Fijo { get; set; }
     }

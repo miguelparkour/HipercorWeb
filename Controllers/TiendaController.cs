@@ -81,12 +81,20 @@ namespace HipercorWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Registro(Cliente cliente)
         {
-            if (ModelState.IsValid && await _dbAccess.signup(cliente))
+            if (ModelState.IsValid)
             {
-                string EncryptEmail = StringCipher.EncryptString(cliente.Email);
-                string body = "<h1><a href='https://localhost:44315/Tienda/EmailConfirm?cEmail=" + EncryptEmail + "'>Confirmar cuenta</a></h1>";
-                _sendEmail.Send(cliente.Email, "Bienvenido a Hipercor, " + cliente.DatosPersonales.Nombre, body);
-                return View("ConfirmarEmail");
+                if (!await _dbAccess.CheckEmail(cliente.Email) && await _dbAccess.signup(cliente))
+                {
+                    string EncryptEmail = StringCipher.EncryptString(cliente.Email);
+                    string body = "<h1><a href='https://localhost:44315/Tienda/EmailConfirm?cEmail=" + EncryptEmail + "'>Confirmar cuenta</a></h1>";
+                    _sendEmail.Send(cliente.Email, "Bienvenido a Hipercor, " + cliente.DatosPersonales.Nombre, body);
+                    return View("ConfirmarEmail");
+                }
+                else
+                { // si hay un error en el signup también entraría x aquí, hay que solucionarlo
+                    ViewData["error"] = "Ese correo electronico ya esta registrado";
+                    return View();
+                }
             }
             return View();
         }
